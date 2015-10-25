@@ -2,6 +2,7 @@ var five = require("johnny-five");
 var player = require('play-sound')(opts = {})
 var sfx = require("sfx");
 var createMedianFilter = require('moving-median')
+var robot = require("robotjs");
 
 var board = new five.Board();
 
@@ -19,39 +20,24 @@ function createInstrument(i, play) {
 	    if (v < 100) {
 	    	if (!played) {
 	    		console.log(ai, 'play !', v)
+	    		robot.keyToggle("space", 'down');
 	    		play();
-	    		led.off();
-	    		led.fadeIn(100, function(){
-	    			led.off();
-	    		});
-	    		led2.toggle();
 		    	played = true;
 		    }
 	    } else {
-	    	played = false
+	    	if(played) {
+	    		robot.keyToggle("space", 'up');
+	    		console.log('up!')
+	    	}
+	    	played = false  
+	    	
 	    }
 	});
 }
 
 
 board.on("ready", function() {
-  led = new five.Led(3);
-  led2 = new five.Led(13);
   createInstrument(0, function(){
-  	sfx.glass(50);
-  });
-  createInstrument(2, function(){
-   	sfx.tink(100);
-  });
-  createInstrument(5, function(){
-  	var messages = [
-  		"What ?",
-  		"stop hitting me",
-  		"knock knock",
-  		"ceci n'est pas une pomme"
-  	]
-  	sfx.say(
-  		messages[Math.floor(Math.random()*messages.length)],
-  		"random");
+  	sfx.glass();
   });
 });
