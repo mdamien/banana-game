@@ -8,4 +8,4 @@ Bonus video: https://goo.gl/photos/Ef6cK3RJCJpwB6SP9
 
 For the schematic, just plug A5 to the banana and hold a wire to the ground on the other hand. I let you hack your way through!
 
-![http://dam.io/photo.jpg](photo)
+![photo](http://dam.io/photo.jpg)
